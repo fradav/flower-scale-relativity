@@ -819,6 +819,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flower-scale-relativity@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "flower-scale-relativity@workspace:."
+  dependencies:
+    "@types/node": ^20.11.21
+    "@types/three": ^0.156.0
+    husky: ^8.0.3
+    lil-gui: ^0.18.2
+    lint-staged: ^13.3.0
+    prettier: 2.8.8
+    sass: ^1.69.0
+    three: ^0.157.0
+    ts-node: ^10.9.2
+    typescript: ^5.3.3
+    vite: ^4.4.11
+    vite-plugin-glsl: ^1.1.2
+  languageName: unknown
+  linkType: soft
+
 "fs-minipass@npm:^2.0.0, fs-minipass@npm:^2.1.0":
   version: 2.1.0
   resolution: "fs-minipass@npm:2.1.0"
@@ -1836,25 +1855,6 @@ __metadata:
   checksum: 444797461c9db09d8a4cad886e494c2e6dd5754f09ac7ac4af75a3bf1143ae79641388db31999edcc76c5dba9677639f09da2df8d0128396a1dd59e41226c85c
   languageName: node
   linkType: hard
-
-"threejs-ts-starter@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "threejs-ts-starter@workspace:."
-  dependencies:
-    "@types/node": ^20.11.21
-    "@types/three": ^0.156.0
-    husky: ^8.0.3
-    lil-gui: ^0.18.2
-    lint-staged: ^13.3.0
-    prettier: 2.8.8
-    sass: ^1.69.0
-    three: ^0.157.0
-    ts-node: ^10.9.2
-    typescript: ^5.3.3
-    vite: ^4.4.11
-    vite-plugin-glsl: ^1.1.2
-  languageName: unknown
-  linkType: soft
 
 "to-regex-range@npm:^5.0.1":
   version: 5.0.1

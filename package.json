@@ -1,11 +1,11 @@
 {
-  "name": "threejs-ts-starter",
+  "name": "flower-scale-relativity",
   "version": "0.1.0",
-  "description": "Simple starter for Three.js projects with TypeScript",
+  "description": "Exploring flower morphogenesis with tulip-like parametric surfaces and three.js",
   "main": "index.html",
-  "repository": "https://github.com/mayacoda/simple-threejs-typescript-starter",
-  "author": "Maya Nedeljković Batić",
-  "license": "MIT",
+  "repository": "https://github.con/fradav/flower-scale-relativity/",
+  "author": "François-David Collin <",
+  "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
