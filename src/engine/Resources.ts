@@ -1,6 +1,6 @@
-import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { EventEmitter } from './utilities/EventEmitter'
+import { LoadingManager, TextureLoader, CubeTextureLoader } from 'three'
 
 export type Resource =
   | {
@@ -18,12 +18,12 @@ type AssetType = 'gltf' | 'texture' | 'cubeTexture'
 
 type Loaders = {
   gltf: GLTFLoader
-  texture: THREE.TextureLoader
-  cubeTexture: THREE.CubeTextureLoader
+  texture: TextureLoader
+  cubeTexture: CubeTextureLoader
 }
 
 export class Resources extends EventEmitter {
-  private loadingManager = new THREE.LoadingManager(
+  private loadingManager = new LoadingManager(
     () => {
       this.emit('loaded')
     },
@@ -47,8 +47,8 @@ export class Resources extends EventEmitter {
   private initLoaders() {
     this.loaders = {
       gltf: new GLTFLoader(this.loadingManager),
-      texture: new THREE.TextureLoader(this.loadingManager),
-      cubeTexture: new THREE.CubeTextureLoader(this.loadingManager),
+      texture: new TextureLoader(this.loadingManager),
+      cubeTexture: new CubeTextureLoader(this.loadingManager),
     }
   }
 

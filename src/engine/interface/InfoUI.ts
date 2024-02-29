@@ -1,9 +1,7 @@
 import './info.scss'
-import twitterLogo from '../../../assets/twitter.png'
 import githubLogo from '../../../assets/github.png'
 
 export type InfoConfig = {
-  twitter?: string
   github?: string
   description?: string
   title?: string
@@ -30,13 +28,6 @@ ${
     : ``
 }
 <div class="social-container">
-${
-  config.twitter
-    ? `<a href="${config.twitter}" class="social-button" target="_blank"> 
-    <img src="${twitterLogo}" alt="Twitter logo linking to profile" />
-  </a>`
-    : ``
-}
 ${
   config.github
     ? `<a href="${config.github}" class="social-button" target="_blank">

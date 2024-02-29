@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import { RenderEngine } from './RenderEngine'
 import { RenderLoop } from './RenderLoop'
 import { DebugUI } from './interface/DebugUI'
@@ -9,10 +8,11 @@ import { InfoConfig, InfoUI } from './interface/InfoUI'
 import { Experience, ExperienceConstructor } from './Experience'
 import { Loader } from './interface/Loader'
 import { Raycaster } from './Raycaster'
+import { Scene } from 'three'
 
 export class Engine {
   public readonly camera!: Camera
-  public readonly scene!: THREE.Scene
+  public readonly scene!: Scene
   public readonly renderEngine!: RenderEngine
   public readonly time!: RenderLoop
   public readonly debug!: DebugUI
@@ -41,7 +41,7 @@ export class Engine {
     this.sizes = new Sizes(this)
     this.debug = new DebugUI()
     this.time = new RenderLoop(this)
-    this.scene = new THREE.Scene()
+    this.scene = new Scene()
     this.camera = new Camera(this)
     this.raycaster = new Raycaster(this)
     this.infoUI = new InfoUI(info)

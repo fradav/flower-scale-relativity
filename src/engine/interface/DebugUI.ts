@@ -1,10 +1,10 @@
-import * as lilGui from 'lil-gui'
 import Stats from 'three/examples/jsm/libs/stats.module'
+import { GUI } from 'lil-gui'
 
 let instance: DebugUI | null = null
 
 export class DebugUI {
-  gui!: lilGui.GUI
+  gui!: GUI
   stats!: Stats
 
   constructor() {
@@ -17,7 +17,7 @@ export class DebugUI {
     this.stats = new Stats()
     document.body.appendChild(this.stats.dom)
 
-    this.gui = new lilGui.GUI()
+    this.gui = new GUI()
 
     if (!window.location.search.includes('debug')) {
       this.gui.hide()

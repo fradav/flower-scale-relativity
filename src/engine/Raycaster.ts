@@ -1,15 +1,15 @@
 import { EventEmitter } from './utilities/EventEmitter'
-import * as THREE from 'three'
 import { Engine } from './Engine'
+import { Raycaster as ThreeRaycaster, Vector2 } from 'three'
 
 export class Raycaster extends EventEmitter {
-  private raycaster: THREE.Raycaster
-  private pointer: THREE.Vector2
+  private raycaster: ThreeRaycaster
+  private pointer: Vector2
 
   constructor(private engine: Engine) {
     super()
-    this.raycaster = new THREE.Raycaster()
-    this.pointer = new THREE.Vector2()
+    this.raycaster = new ThreeRaycaster()
+    this.pointer = new Vector2()
 
     document.addEventListener('mousemove', (event) => {
       const x = (event.clientX / this.engine.sizes.width) * 2 - 1
@@ -47,6 +47,6 @@ export class Raycaster extends EventEmitter {
   private mouseEventToVector2(event: MouseEvent) {
     const x = (event.clientX / this.engine.sizes.width) * 2 - 1
     const y = -(event.clientY / this.engine.sizes.height) * 2 + 1
-    return new THREE.Vector2(x, y)
+    return new Vector2(x, y)
   }
 }

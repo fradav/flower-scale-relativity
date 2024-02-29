@@ -1,138 +1,90 @@
-# Simple Three.js + TypeScript + Vite Starter
+# Des fleurs pour Schrödinger
+François-David Collin
+2024-02-28
 
-This scaffolding lets you easily get started with using Three.js and TypeScript.
+# Résumé
 
-![example scene](./assets/docs/example.png)
+Ce projet est un hommage à Laurent Nottale, physicien théoricien
+français, qui a développé la théorie de la relativité d’échelle. Nous
+proposons ici de visualiser la diversité de ces formes issues des
+fonctions paramètriques, relativement simples, proposées par Laurent
+Nottale pour illustrer la morphogenèse de certaines fleurs.
 
-## Features
+Cette théorie propose une vision fractale de l’univers, où les lois de
+la physique sont invariantes par changement d’échelle. Cette vision est
+illustrée par des fractales (au sens étendu), des objets mathématiques
+régis par des lois d’échelle. L’espace-temps est fondamentalement
+fractal, traversée par d’infinies géodésiques, et on peut en dériver
+l’équation de Schrödinger, qui décrit l’évolution des fonctions d’onde
+en mécanique quantique à l’échelle microscopique. D’autres phénomènes de
+croissance, comme ceux qui partent d’un centre, reflètent également
+cette structure fractale fondamentale et peuvent s’écrire sous forme de
+« potentiel quantique » : la diffusion des électrons dans un atome, la
+formation des nébuleuses planétaires, la morphogenèse des fleurs, etc.
+Il suffit d’un potentiel central et d’une symétrie sphérique, et les
+solutions de l’équation sont des discrétisations du moment angulaire,
+qui se traduisent par des formes géométriques :
 
-- Vite development environment
-- Full TypeScript support
-- Asset management
-- Debugging GUI and Stats
-- Social media and description overlay
-- Simple loading animation
-- Including shader chunks
-- [LYGIA Shader Library](https://lygia.xyz/) 
+> Enfin, une morphologie plus probable est obtenue en « envoyant » de la
+> matière le long d’angles de probabilité maximale. Les contraintes
+> biologiques conduisent à passer à la symétrie cylindrique. Cela
+> conduit dans le cas le plus simple à une quantification périodique de
+> l’angle $θ$ (mesuré par un nombre quantique supplémentaire $k$), qui
+> donne lieu à une séparation de “pétales” discrétisés. En outre, il
+> existe une rupture de symétrie discrète le long de l’axe $z$ liée à
+> l’orientation (séparation du « haut » et du « bas » due à la gravité,
+> croissance à partir d’une tige). Les solutions ainsi obtenues
+> présentent des formes florales de type « tulipe » \[…\].[^1]
 
-## Prerequisites
+Le titre est repris de l’ouvrage issu de la collaboration entre Jean
+ChaLine, Laurent Nottale, et Pierre Grou[^2].
 
-- [Node.js](https://nodejs.org)
-- [yarn](https://yarnpkg.com) OR [npm](https://www.npmjs.com)
+# Installation en local
 
-> 💡 This project uses **yarn@3.2.1** and **npm@8.1.2**. Other versions might lead to different package resolutions, proceed with caution. Example commands use **yarn**.
+## Prérequis
+
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/) ou [npm](https://www.npmjs.com/)
+- [Git](https://git-scm.com/)
 
 ## Installation
 
-To use this scaffolding, run the following command:
-
-```bash
-git clone https://github.com/mayacoda/simple-threejs-typescript-starter my-threejs-project
-cd my-threejs-project
+``` bash
+git clone
+cd fleurs-schrodinger
 yarn install
 ```
 
-> ✅ If you are on GitHub, create a new repository using this repository as a template by clicking the green **Use this template** button in the top right.
+## Lancer le serveur de développement
 
-## Development
-
-The starter includes a pre-configured Vite server which you can use to run and develop your project. To start the development server, run the following command:
-
-```bash
+``` bash
 yarn dev
 ```
 
-To build the project, run:
+## Build
 
-```bash
+``` bash
 yarn build
 ```
 
-And if you wish to automatically start a server to preview your build, you can run:
+# Paramètres
 
-```bash
-yarn build && yarn preview
-```
+# Logiciels, librairies et ressources
 
-### Engine
+- [Three.js](https://threejs.org/)
+- [Vite + Three.js simple
+  template](https://github.com/mayacoda/simple-threejs-typescript-starter)
+- [The book of shaders](https://thebookofshaders.com/)
+- [The spite shaders experiments](https://spite.github.io/sketch/)
+- [Extrude parametric
+  shapes](https://stackoverflow.com/questions/48926967/threejs-extrude-parametricgeometry)
+- [Sketchy
+  outlines](https://tympanus.net/codrops/2022/11/29/sketchy-pencil-effect-with-three-js-post-processing/)
+- [Outlines](https://omar-shehata.medium.com/how-to-render-outlines-in-webgl-8253c14724f9)
 
-The starter includes a utility `Engine` class which is responsible for setting up the renderer, render loop, scene, camera, and controls. All you have to do is provide a class that follows the `Experience` interface and pass it to the `Engine` constructor.
+[^1]: Laurent Nottale, *Scale relativity and fractal space-time: a new
+    approach to unifying relativity and quantum mechanics* (World
+    Scientific, 2011), traduit par nous.
 
-```typescript
-// in src/main.ts
-
-import { Engine } from './engine/Engine'
-import { Demo } from './demo/Demo'
-
-new Engine({
-  canvas: document.querySelector('#canvas') as HTMLCanvasElement,
-  experience: Demo,
-  info: {
-    twitter: 'https://twitter.com/maya_ndljk',
-    github: 'https://github.com/mayacoda/simple-threejs-typescript-starter',
-    description: 'A simple Three.js + Typescript + Vite starter project',
-    documentTitle: 'Three.js + Typescript + Vite',
-    title: 'A cube on a plane',
-  },
-})
-```
-
-Then inside the class which implements `Experience`, you have access to the entire engine and its components.
-
-```typescript
-// in src/demo/Demo.ts
-
-import { Engine } from '../engine/Engine'
-import { Experience } from '../engine/Experience'
-import { Resource } from '../engine/Resources'
-
-export class Demo implements Experience {
-  // list of resources required by the experience
-  resources: Resource[] = []
-
-  constructor(private engine: Engine) {}
-
-  // initialize scene -- called by tne Engine after resources are loaded
-  init() {}
-
-  // called on resize
-  resize() {}
-
-  // called on each render
-  update() {}
-}
-```
-
-### Removing the example scene
-
-To demonstrate how to use the scaffolding, this project includes an example scene. To remove it and start with a blank project, run:
-
-```bash
-yarn cleanup
-```
-
-This will also clear the content of this README.md file to just the basic commands for running the project.
-
-### Serving Resources
-
-Resources loaded through THREE.js loaders need to go in the `/public` directory to avoid being compiled by Vite. This includes textures and models.
-
-More information about Vite's asset handling can be found [here](https://vitejs.dev/guide/assets.html).
-
-### Including Shader Chunks
-
-Shaders are loaded using the [vite-plugin-glsl](https://github.com/UstymUkhman/vite-plugin-glsl) Vite plugin and can be located anywhere within the `/src` directory.
-
-The starter also includes the LYGIA Shader Library. To use it, import the shader chunks you need in your shader file.
-
-```glsl
-// in src/demo/shader.frag
-
-#include "../shaders/lygia/color/palette/water.glsl"
-
-varying vec2 vUv;
-
-void main() {
-    gl_FragColor = vec4(water(vUv.y), 1.0);
-}
-```
+[^2]: *Des fleurs pour Schrödinger: la relativité d’échelle et ses
+    applications* (Ellipses, 2009).

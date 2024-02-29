@@ -1,5 +1,5 @@
 import { Engine } from './Engine'
-import * as THREE from 'three'
+import { Clock } from 'three'
 
 export class RenderLoop {
   private clock: THREE.Clock
@@ -7,7 +7,7 @@ export class RenderLoop {
   public currentTime: number = 0
 
   constructor(private engine: Engine) {
-    this.clock = new THREE.Clock()
+    this.clock = new Clock()
     window.requestAnimationFrame(() => this.update())
   }
 
