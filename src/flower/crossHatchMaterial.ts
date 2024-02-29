@@ -16,7 +16,7 @@ class CrossHatchMaterial extends MeshStandardMaterial {
         super(options);
 
         const loader = new TextureLoader();
-        const noiseTexture = loader.load("../assets/noise1.png");
+        const noiseTexture = loader.load("assets/noise1.png");
         noiseTexture.wrapS = noiseTexture.wrapT = RepeatWrapping;
 
         this.params = {
