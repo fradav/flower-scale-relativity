@@ -1,4 +1,5 @@
 import glsl from 'vite-plugin-glsl'
+import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -13,5 +14,8 @@ export default defineConfig({
     },
   },
 
-  plugins: [glsl()],
+  plugins: [
+    glsl(),
+    VitePWA({ registerType: 'autoUpdate' })
+  ],
 })
