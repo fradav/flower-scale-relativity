@@ -36,10 +36,10 @@ export class Flower implements Experience {
     camera.translateOnAxis(new Vector3(-0.1, 0.15, -1), 2.5)
     //    this.engine.camera.instance.setViewOffset(2560,1600,350,150,1800,1200)
 
-    camera.aspect = this.width / this.height
-    camera.updateProjectionMatrix()
-    renderer.setSize(this.width, this.height)
-    renderer.render(scene, camera)
+    // camera.aspect = this.width / this.height
+    // camera.updateProjectionMatrix()
+    // renderer.setSize(this.width, this.height)
+    // renderer.render(scene, camera)
 
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -63,10 +63,10 @@ export class Flower implements Experience {
   }
 
   resize() {
-    this.engine.camera.instance.aspect = this.width / this.height
-    this.engine.camera.instance.updateProjectionMatrix()
-    this.engine.renderEngine.composer.renderer.setSize(this.width, this.height)
-    this.engine.renderEngine.composer.renderer.render(this.engine.scene, this.engine.camera.instance)
+    // this.engine.camera.instance.aspect = this.width / this.height
+    // this.engine.camera.instance.updateProjectionMatrix()
+    // this.engine.renderEngine.composer.renderer.setSize(this.width, this.height)
+    // this.engine.renderEngine.composer.renderer.render(this.engine.scene, this.engine.camera.instance)
 
     // this.engine.camera.instance.aspect = window.innerWidth / window.innerHeight;
     // this.engine.camera.instance.updateProjectionMatrix();
