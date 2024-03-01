@@ -23,9 +23,9 @@ export default defineConfig({
       },
       // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.png', 'pwa-192x192.png'],
       manifest: {
-        name: 'My Awesome App',
+        name: 'Flower Scale Relativity',
         short_name: 'flower-scale-relativity',
-        description: 'Flower Scale Relativity',
+        description: 'Experiment parametric functions for flower-like shapes',
         theme_color: '#000000',
         icons: [
           {
