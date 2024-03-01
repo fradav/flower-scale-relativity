@@ -7,7 +7,6 @@ import {
   generateParams as generatePaperParams,
   getTexture,
 } from './Paper'
-import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass'
 import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js'
 
@@ -278,13 +277,19 @@ export class FlowerStruct {
   }
   render() {
     // Remove all meshes from the scene
+    let toremove = this.engine.scene.children.filter(
+      (value) => value instanceof Mesh === true
+    )
     this.engine.scene.children = this.engine.scene.children.filter(
       (value) => value instanceof Mesh === false
     )
-    const outlinepass = this.engine.renderEngine.composer.passes.filter(
-      (value) => !(value instanceof OutlinePass)
-    )[0]
-    if (outlinepass instanceof OutlinePass) outlinepass.selectedObjects = []
+    toremove.forEach((value) => {
+      (value as Mesh).geometry.dispose()
+    })
+    // const outlinepass = this.engine.renderEngine.composer.passes.filter(
+    //   (value) => !(value instanceof OutlinePass)
+    // )[0]
+    // if (outlinepass instanceof OutlinePass) outlinepass.selectedObjects = []
 
     for (let i = 0; i < 4; i++) {
       let f = [this.petales, this.sepales, this.etamines, this.tige][i]

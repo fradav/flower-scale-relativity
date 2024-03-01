@@ -7,8 +7,8 @@ new Engine({
   experience: Flower,
   info: {
     github: 'https://github.com/fradav/flower-scale-relativity',
-    description: 'A scale relavitity simulation of a flower using Three.js',
-    documentTitle: 'Flower Scale Relativity',
-    title: 'Flower Scale Relativity',
+    description: 'Simulation de la morphogenèse des fleurs à partir de la théorie de la relativité d’échelle.',
+    documentTitle: 'Des Fleurs pour Schrödinger, Hommage à Laurent Nottale',
+    title: 'Des Fleurs pour Schrödinger, Hommage à Laurent Nottale',
   }
 })

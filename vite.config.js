@@ -23,9 +23,9 @@ export default defineConfig({
       },
       // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.png', 'pwa-192x192.png'],
       manifest: {
-        name: 'Flower Scale Relativity',
+        name: 'Des Fleurs pour Schrödinger',
         short_name: 'flower-scale-relativity',
-        description: 'Experiment parametric functions for flower-like shapes',
+        description: 'Hommage à Laurent Nottale. Expérimentation avec les fonctions paramétriques pour les formes florales de type « tulipe ».',
         theme_color: '#000000',
         icons: [
           {
