@@ -138,7 +138,7 @@ export class FlowerStruct {
   petales: Petales
   sepales: Sepales
   engine: Engine
-
+  boxstep: number = 100
 
   constructor(engine: Engine) {
     this.engine = engine
@@ -158,6 +158,7 @@ export class FlowerStruct {
       dataDownload(result, name + '.stl', 'application/octet-stream')
     }
 
+    engine.debug.gui.close()
     const fleurGUI = engine.debug.gui.addFolder('Fleur')
     const fleurSave = {
       Nom: '',
@@ -313,7 +314,7 @@ export class FlowerStruct {
         }
       } else {
         // Morphed box surface rendering for volume effect
-        let geometry = new BoxGeometry(1, 1, 1, 200, 1, 200)
+        let geometry = new BoxGeometry(1, 1, 1, this.boxstep, 1, this.boxstep)
         let positionAttribute = geometry.getAttribute('position')
         let vertex = new Vector3()
         for (let i = 0; i < positionAttribute.count; i++) {

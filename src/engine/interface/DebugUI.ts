@@ -19,10 +19,10 @@ export class DebugUI {
 
     this.gui = new GUI()
 
-    if (!window.location.search.includes('debug')) {
-      this.gui.hide()
-      this.stats.dom.style.display = 'none'
-    }
+    // if (!window.location.search.includes('debug')) {
+    //   this.gui.hide()
+    //   this.stats.dom.style.display = 'none'
+    // }
 
     window.addEventListener('keydown', (event) => {
       if (event.key === 'h') {

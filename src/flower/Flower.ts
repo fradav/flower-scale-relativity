@@ -18,6 +18,7 @@ import { PencilLinesPass } from './PencilLinesPass'
 
 export class Flower implements Experience {
   resources: Resource[] = []
+  lightversion = true
   // width = 1063
   // height = 1654
 
@@ -46,34 +47,28 @@ export class Flower implements Experience {
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
     const renderPass = new RenderPass(scene,camera)
-    composer.addPass(renderPass)
-
     const pencilLines = new PencilLinesPass({
       width: this.engine.sizes.width,
       height: this.engine.sizes.height,
       scene: scene,
       camera: camera,
     })
-    composer.addPass(pencilLines)
-
     // const customOutline = new CustomOutlinePass(
     //   new Vector2(this.engine.sizes.width, this.engine.sizes.height),
     //   scene,
     //   camera
     // )
     // composer.addPass(customOutline)
-
     const effectFXAA = new ShaderPass(FXAAShader)
     effectFXAA.uniforms['resolution'].value.set(
       1 / innerWidth,
       1 / innerHeight
     )
     effectFXAA.renderToScreen = true
-    composer.addPass(effectFXAA)
 
-    // const effectSMAA = new SMAAPass(this.width * 16, this.height + 16)
-    // effectSMAA.renderToScreen = true
-    // composer.addPass(effectSMAA)
+    composer.addPass(renderPass)
+    composer.addPass(pencilLines)
+    composer.addPass(effectFXAA)
 
     new FlowerStruct(this.engine)
   }
