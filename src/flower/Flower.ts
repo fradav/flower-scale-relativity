@@ -26,10 +26,11 @@ export class Flower implements Experience {
     camera.updateProjectionMatrix()
 
     const hemisphereLight = new HemisphereLight(0x7a3114, 0x48c3ff, 16)
-
+    // hemisphereLight.castShadow = true
     scene.add(hemisphereLight)
     scene.background = new Color(0xfffffff)
     let directionalLight = new DirectionalLight(0xffffff, 12)
+    // directionalLight.castShadow = true
     scene.add(directionalLight)
 
     directionalLight.position.set(-10, 10, -5)

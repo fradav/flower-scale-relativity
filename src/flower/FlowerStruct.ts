@@ -1,5 +1,17 @@
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry.js'
-import { Mesh, Vector3, BoxGeometry, Texture, MeshPhysicalMaterial } from 'three'
+import {
+  Mesh,
+  Vector3,
+  BoxGeometry,
+  Texture,
+  MeshPhysicalMaterial,
+  Matrix3,
+  Triangle,
+  SubtractiveBlending,
+  NormalBlending,
+  NoBlending,
+  AdditiveBlending,
+} from 'three'
 import { Engine } from '../engine/Engine'
 import { CrossHatchMaterial, generateParams } from './crossHatchMaterial'
 import {
@@ -19,7 +31,7 @@ class Tige {
     let phi = rho * 2 * Math.PI
     X.x = this.a * (this.b + r) * Math.sin(this.theta) * Math.cos(phi)
     X.z = this.a * (this.b + r) * Math.sin(this.theta) * Math.sin(phi)
-    X.y = this.a * (0 + r) * Math.cos(this.theta)
+    X.y = this.a * r * Math.cos(this.theta)
   }
 }
 
@@ -29,7 +41,7 @@ class Etamines {
   b: number = 0.2 // base tige
 
   func = (r: number, rho: number, X: Vector3) => {
-    let phi = rho * 2 * Math.PI
+    let phi = - rho * 2 * Math.PI
     X.x = this.a * (this.b + (1 - r)) * r * Math.sin(this.theta) * Math.cos(phi)
     X.z = this.a * (this.b + (1 - r)) * r * Math.sin(this.theta) * Math.sin(phi)
     X.y = this.a * r * Math.cos(this.theta)
@@ -108,21 +120,25 @@ export const material = new CrossHatchMaterial({
   color: 0x808080,
   roughness: 0,
   metalness: 0,
-  side: 1,
-  opacity: 1,
-  transparent: false,
+  // side: 1,
+  // opacity: 1,
+  // transparent: false,
+  // alphaTest: 1
+
   // emissive: 0x101010,
 })
 const materials = Array(4).fill(material)
 
 // let started = false
 
-function dataDownload(data: string | DataView | Blob, filename: string, type: string) {
-  let blob : Blob
-  if (data instanceof Blob) 
-    blob = data
-  else 
-    blob = new Blob([data], { type: type })
+function dataDownload(
+  data: string | DataView | Blob,
+  filename: string,
+  type: string
+) {
+  let blob: Blob
+  if (data instanceof Blob) blob = data
+  else blob = new Blob([data], { type: type })
   let a = document.createElement('a')
   let url = URL.createObjectURL(blob)
   a.href = url
@@ -138,6 +154,7 @@ export class FlowerStruct {
   sepales: Sepales
   engine: Engine
   boxstep: number = 100
+  thickness: number = 0.0005
 
   constructor(engine: Engine) {
     this.engine = engine
@@ -148,7 +165,6 @@ export class FlowerStruct {
 
     const exporter = new STLExporter()
 
-  
     function saveSTL(name: string, scale: number) {
       let scene = engine.scene.clone(true)
       scene.scale.set(scale, scale, scale)
@@ -195,11 +211,8 @@ export class FlowerStruct {
             camera.updateProjectionMatrix()
             renderer.setSize(innerWidth, innerHeight)
             renderer.render(scene, camera)
+          })
         })
-
-
-        })
-
       },
       Charger: () => {
         console.log('Charger')
@@ -236,8 +249,6 @@ export class FlowerStruct {
     petalesGUI.close()
     const sepalesGUI = fleurGUI.addFolder('Sépales')
     sepalesGUI.close()
-
-
 
     // tigeGUI.add(this.tige, 'theta', 0, Math.PI)
     tigeGUI.add(this.tige, 'a', 0, 2)
@@ -284,7 +295,7 @@ export class FlowerStruct {
       (value) => value instanceof Mesh === false
     )
     toremove.forEach((value) => {
-      (value as Mesh).geometry.dispose()
+      ;(value as Mesh).geometry.dispose()
     })
     // const outlinepass = this.engine.renderEngine.composer.passes.filter(
     //   (value) => !(value instanceof OutlinePass)
@@ -295,74 +306,49 @@ export class FlowerStruct {
       let f = [this.petales, this.sepales, this.etamines, this.tige][i]
       // Pure surface rendering
       let mesh: Mesh
-      if (f instanceof Tige || f instanceof Etamines) {
-        let paramgeometry = new ParametricGeometry(
-          (r, rho, X) => f.func(r, rho, X),
-          100,
-          100
+
+      // } else {
+      // Morphed box surface rendering for volume effect
+      let geometry = new BoxGeometry(1, 1, 1.01, this.boxstep, 1, this.boxstep)
+      let positionAttribute = geometry.getAttribute('position')
+      let normalAttribute = geometry.getAttribute('normal')
+      let vertex = new Vector3()
+      let outNormal = new Vector3()
+      let upperindex = []
+      for (let i = 0; i < positionAttribute.count; i++) {
+        vertex.fromBufferAttribute(positionAttribute, i)
+        if (
+          vertex.y > 0 &&
+          Math.abs(vertex.z) < 1.01 / 2 &&
+          Math.abs(vertex.x) != 0.5
         )
-        let vertices = []
-        let positionAttribute = paramgeometry.getAttribute('position')
-        let vertex = new Vector3()
-        for (let i = 0; i < positionAttribute.count; i++) {
-          vertex.fromBufferAttribute(positionAttribute, i)
-          vertices.push(vertex.clone())
-        }
-        let geometry = new ConvexGeometry(vertices)
-        mesh = new Mesh(geometry, materials[i])
-        if (f instanceof Tige) {
-          mesh.translateY(0.05)
-        }
-        if (f instanceof Etamines) {
-          mesh.scale.set(2, 1.2, 2)
-          mesh.translateY(-0.1)
-        }
-      } else {
-        // Morphed box surface rendering for volume effect
-        let geometry = new BoxGeometry(1, 1, 1, this.boxstep, 1, this.boxstep)
-        let positionAttribute = geometry.getAttribute('position')
-        let vertex = new Vector3()
-        for (let i = 0; i < positionAttribute.count; i++) {
-          vertex.fromBufferAttribute(positionAttribute, i)
-          let r = vertex.x + 0.5
-          let rho = vertex.z + 0.5
-          let y = (vertex.y + 0.5) * 0.0001
-          f.func(r, rho, vertex)
-          positionAttribute.setXYZ(i, vertex.x, vertex.y + y, vertex.z)
-        }
-        geometry.computeVertexNormals()
-        mesh = new Mesh(geometry, materials[i])
+          upperindex.push(i)
+        let r = vertex.x + 0.5
+        let rho = vertex.z + 0.5
+        f.func(r, rho, vertex)
+        positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
       }
+      geometry.computeVertexNormals()
+      upperindex.forEach((i) => {
+        vertex.fromBufferAttribute(positionAttribute, i)
+        outNormal.fromBufferAttribute(normalAttribute, i)
+  vertex.add(outNormal.multiplyScalar(this.thickness))
+        positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
+      })
+      geometry.computeVertexNormals()
+      mesh = new Mesh(geometry, materials[i])
+
+      if (f instanceof Tige) {
+        mesh.translateY(0.05)
+      }
+      if (f instanceof Etamines) {
+        mesh.scale.set(2, 1.2, 2)
+        mesh.translateY(-0.2)
+      }
+      mesh.castShadow = true
+      mesh.receiveShadow = true
       this.engine.scene.add(mesh)
 
-      // if (outlinepass instanceof OutlinePass) {
-      //   outlinepass.selectedObjects.push(mesh)
-      //   console.log("Added mesh to outlinepass")
-      // }
-
-      // if (!started) {
-      //   const renderer = this.engine.renderEngine.composer.renderer;
-      //   renderer.compile(this.engine.scene, this.engine.camera.instance)
-      //   const programs = renderer.properties.get(mesh.material).programs;
-      //   console.log(programs);
-      //   for (let program of programs) {
-      //     const vertexShader = renderer.getContext().getShaderSource(program[1]['vertexShader'])
-      //     console.log("vertexShader: \n",vertexShader);
-      //     const fragmentShader = renderer.getContext().getShaderSource(program[1]['fragmentShader'])
-      //     console.log("vertexShader: \n",fragmentShader)
-      //   }
-      //   started = true;
-      //   // Utils.init(this.engine.renderEngine.composer.renderer, this.engine.scene, this.engine.camera.instance, mesh);
-      // }
-      // Add a background plane
-      // let plane = new PlaneGeometry(100, 100, 1, 1);
-      // plane.rotateZ(Math.PI / 2);
-      // plane.translate(0, 0, -10);
-      // let planemesh = new Mesh(plane, material);
-
-      // this.engine.scene.add(planemesh);
     }
   }
 }
-
-
