@@ -1,47 +1,7 @@
-# Des fleurs pour Schrödinger
-François-David Collin
-2024-02-28
+[Exhibit description](https://fradav.perso.math.cnrs.fr/posts/Mati%C3%A8re%20solaire.html)
+[Webgl App](https://fradav.github.io/flower-scale-relativity/)
 
-# Résumé
-
-Ce projet est un hommage à Laurent Nottale, physicien théoricien
-français, qui a développé la théorie de la relativité d’échelle. Nous
-proposons ici de visualiser la diversité de ces formes issues des
-fonctions paramètriques, relativement simples, proposées par Laurent
-Nottale pour illustrer la morphogenèse de certaines fleurs.
-
-Cette théorie propose une vision fractale de l’univers, où les lois de
-la physique sont invariantes par changement d’échelle. Cette vision est
-illustrée par des fractales (au sens étendu), des objets mathématiques
-régis par des lois d’échelle. L’espace-temps est fondamentalement
-fractal, traversée par d’infinies géodésiques, et on peut en dériver
-l’équation de Schrödinger, qui décrit l’évolution des fonctions d’onde
-en mécanique quantique à l’échelle microscopique. D’autres phénomènes de
-croissance, comme ceux qui partent d’un centre, reflètent également
-cette structure fractale fondamentale et peuvent s’écrire sous forme de
-« potentiel quantique » : la diffusion des électrons dans un atome, la
-formation des nébuleuses planétaires, la morphogenèse des fleurs, etc.
-Il suffit d’un potentiel central et d’une symétrie sphérique, et les
-solutions de l’équation sont des discrétisations du moment angulaire,
-qui se traduisent par des formes géométriques :
-
-> Enfin, une morphologie plus probable est obtenue en « envoyant » de la
-> matière le long d’angles de probabilité maximale. Les contraintes
-> biologiques conduisent à passer à la symétrie cylindrique. Cela
-> conduit dans le cas le plus simple à une quantification périodique de
-> l’angle $θ$ (mesuré par un nombre quantique supplémentaire $k$), qui
-> donne lieu à une séparation de “pétales” discrétisés. En outre, il
-> existe une rupture de symétrie discrète le long de l’axe $z$ liée à
-> l’orientation (séparation du « haut » et du « bas » due à la gravité,
-> croissance à partir d’une tige). Les solutions ainsi obtenues
-> présentent des formes florales de type « tulipe » \[…\].[^1]
-
-Le titre est repris de l’ouvrage issu de la collaboration entre Jean
-ChaLine, Laurent Nottale, et Pierre Grou[^2].
-
-# Installation en local
-
-## Prérequis
+## Prerequisites
 
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/) ou [npm](https://www.npmjs.com/)
@@ -55,7 +15,7 @@ cd fleurs-schrodinger
 yarn install
 ```
 
-## Lancer le serveur de développement
+## Launch development server
 
 ``` bash
 yarn dev
@@ -66,25 +26,3 @@ yarn dev
 ``` bash
 yarn build
 ```
-
-# Paramètres
-
-# Logiciels, librairies et ressources
-
-- [Three.js](https://threejs.org/)
-- [Vite + Three.js simple
-  template](https://github.com/mayacoda/simple-threejs-typescript-starter)
-- [The book of shaders](https://thebookofshaders.com/)
-- [The spite shaders experiments](https://spite.github.io/sketch/)
-- [Extrude parametric
-  shapes](https://stackoverflow.com/questions/48926967/threejs-extrude-parametricgeometry)
-- [Sketchy
-  outlines](https://tympanus.net/codrops/2022/11/29/sketchy-pencil-effect-with-three-js-post-processing/)
-- [Outlines](https://omar-shehata.medium.com/how-to-render-outlines-in-webgl-8253c14724f9)
-
-[^1]: Laurent Nottale, *Scale relativity and fractal space-time: a new
-    approach to unifying relativity and quantum mechanics* (World
-    Scientific, 2011), traduit par nous.
-
-[^2]: *Des fleurs pour Schrödinger: la relativité d’échelle et ses
-    applications* (Ellipses, 2009).
